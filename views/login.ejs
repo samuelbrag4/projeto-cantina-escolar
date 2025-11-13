@@ -1,10 +1,32 @@
+<!-- view: login.ejs -->
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Login</title>
+    <meta charset="utf-8" />
+    <title>Login - Cantina Escolar</title>
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <h1>Login</h1>
+    <header>
+      <h2>Cantina Escolar</h2>
+      <nav>
+        <a href="/">Login</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <h1>Entrar</h1>
+        <form action="/login" method="post">
+          <input type="text" name="username" placeholder="Email ou nome" required />
+          <input type="password" name="password" placeholder="Senha" required />
+          <button type="submit">Entrar</button>
+        </form>
+
+        <% if (typeof erro !== 'undefined' && erro) { %>
+          <p class="erro"><%= erro %></p>
+        <% } %>
+      </div>
+    </main>
   </body>
 </html>

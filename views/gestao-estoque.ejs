@@ -25,9 +25,9 @@
                     <option value="">Selecione o produto</option>
                     <% produtos.forEach(p=> { %>
                         <option value="<%= p.id %>">
-                            <%= p.name %> (Estoque: <%= p.qty %>)
+                            <%= p.nome %> (Estoque: <%= p.quantidade %>)
                         </option>
-                        <% }) %>
+                    <% }) %>
                 </select>
 
                 <select name="type" required>
@@ -48,40 +48,24 @@
                 <thead>
                     <tr>
                         <th>Produto</th>
-                        <th>Usuário</th>
-                        <th>Tipo</th>
+                        <th>Funcionário</th>
                         <th>Qtd</th>
-                        <th>Data</th>
-                        <th>Saldo</th>
-                        <th>Observação</th>
+                        <th>Preço Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% movimentos.forEach(m=> { %>
-                        <tr class="<%= m.type === 'saida' ? 'saida' : 'entrada' %>">
-                            <td>
-                                <%= m.produto %>
-                            </td>
-                            <td>
-                                <%= m.usuario %>
-                            </td>
-                            <td>
-                                <%= m.type %>
-                            </td>
-                            <td>
-                                <%= m.quantity %>
-                            </td>
-                            <td>
-                                <%= m.data %>
-                            </td>
-                            <td>
-                                <%= m.balance_after %>
-                            </td>
-                            <td>
-                                <%= m.note || '-' %>
-                            </td>
-                        </tr>
+                    <% if (!movimentos || movimentos.length === 0) { %>
+                        <tr><td colspan="4">Nenhuma movimentação recente.</td></tr>
+                    <% } else { %>
+                        <% movimentos.forEach(m => { %>
+                            <tr>
+                                <td><%= m.produto %></td>
+                                <td><%= m.funcionario %></td>
+                                <td><%= m.quantidade %></td>
+                                <td>R$ <%= Number(m.preco_total).toFixed(2) %></td>
+                            </tr>
                         <% }) %>
+                    <% } %>
                 </tbody>
             </table>
         </section>

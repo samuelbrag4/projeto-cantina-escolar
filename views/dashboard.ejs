@@ -9,7 +9,7 @@
 
 <body>
     <header>
-        <h2>Bem-vindo(a), <%= usuario.name %>!</h2>
+        <h2>Bem-vindo(a), <%= usuario ? usuario.nome : 'Usuário' %>!</h2>
         <nav>
             <a href="/cadastro-produto">Cadastro de Produto</a> |
             <a href="/gestao-estoque">Gestão de Estoque</a> |
@@ -19,23 +19,28 @@
 
     <main>
         <h3>Estatísticas</h3>
-        <p>Total de produtos: <%= totalProdutos %>
-        </p>
-        <p>Total de movimentações: <%= totalMov %>
-        </p>
+        <p>Total de produtos: <%= totalProdutos %></p>
+        <p>Total de vendas: <%= totalMov %></p>
 
         <h3>Produtos com estoque baixo</h3>
-        <% if (produtosBaixos.length===0) { %>
-            <p>Nenhum produto crítico</p>
-            <% } else { %>
-                <ul>
-                    <% produtosBaixos.forEach(p=> { %>
-                        <li>
-                            <%= p.name %> — Estoque: <%= p.qty %> (mínimo: <%= p.min_stock %>)
-                        </li>
-                        <% }) %>
-                </ul>
-                <% } %>
+        <% if (!produtosBaixos || produtosBaixos.length === 0) { %>
+            <p>Nenhum produto com estoque baixo.</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr><th>Produto</th><th>Quantidade</th><th>Preço</th></tr>
+                </thead>
+                <tbody>
+                    <% produtosBaixos.forEach(p => { %>
+                        <tr>
+                            <td><%= p.nome %></td>
+                            <td><%= p.quantidade %></td>
+                            <td>R$ <%= Number(p.preco).toFixed(2) %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
     </main>
 </body>
 
