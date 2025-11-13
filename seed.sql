@@ -1,5 +1,5 @@
 CREATE DATABASE cantina_escolar;
-\c cantina_escolar;
+\c cantina_escolar
 
 CREATE TABLE produtos (
     id SERIAL PRIMARY KEY,
