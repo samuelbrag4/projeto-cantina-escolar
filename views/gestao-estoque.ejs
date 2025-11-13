@@ -1,11 +1,91 @@
-<!-- view: gestao-estoque.ejs - placeholder -->
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
     <title>Gestão de Estoque</title>
-  </head>
-  <body>
-    <h1>Gestão de Estoque (placeholder)</h1>
-  </body>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <header>
+        <h2>Gestão de Estoque da Cantina Escolar</h2>
+        <nav>
+            <a href="/dashboard">Dashboard</a> |
+            <a href="/cadastro-produto">Produtos</a> |
+            <a href="/logout">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h3>Registrar venda</h3>
+            <form action="/gestao-estoque" method="POST" class="form-mov">
+                <select name="product_id" required>
+                    <option value="">Selecione o produto</option>
+                    <% produtos.forEach(p=> { %>
+                        <option value="<%= p.id %>">
+                            <%= p.name %> (Estoque: <%= p.qty %>)
+                        </option>
+                        <% }) %>
+                </select>
+
+                <select name="type" required>
+                    <option value="entrada">Entrada</option>
+                    <option value="saida">Saída</option>
+                </select>
+
+                <input type="number" name="quantity" min="1" placeholder="Quantidade" required>
+                <input type="date" name="movement_date" value="<%= new Date().toISOString().slice(0,10) %>" required>
+                <input type="text" name="note" placeholder="Observação (opcional)">
+                <button type="submit">Registrar</button>
+            </form>
+        </section>
+
+        <section>
+            <h3>Últimas vendas</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Usuário</th>
+                        <th>Tipo</th>
+                        <th>Qtd</th>
+                        <th>Data</th>
+                        <th>Saldo</th>
+                        <th>Observação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% movimentos.forEach(m=> { %>
+                        <tr class="<%= m.type === 'saida' ? 'saida' : 'entrada' %>">
+                            <td>
+                                <%= m.produto %>
+                            </td>
+                            <td>
+                                <%= m.usuario %>
+                            </td>
+                            <td>
+                                <%= m.type %>
+                            </td>
+                            <td>
+                                <%= m.quantity %>
+                            </td>
+                            <td>
+                                <%= m.data %>
+                            </td>
+                            <td>
+                                <%= m.balance_after %>
+                            </td>
+                            <td>
+                                <%= m.note || '-' %>
+                            </td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+
 </html>
