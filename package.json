@@ -1,0 +1,20 @@
+{
+  "name": "projeto-cantina-escolar",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Samuel Braga",
+  "license": "MIT",
+  "description": "Projeto de prática para o SAEP. Sistema de cantina escolar.",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "gitignore": "^0.7.0",
+    "pg": "^8.16.3"
+  }
+}
